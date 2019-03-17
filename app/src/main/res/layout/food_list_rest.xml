@@ -12,20 +12,20 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="1">
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.2"
+            android:layout_weight="0.7"
             app:srcCompat="@mipmap/foodninjared" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:layout_weight="0.6"
+            android:layout_weight="0.3"
             android:orientation="vertical">
 
             <TextView
@@ -50,13 +50,6 @@
 
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.2"
-            android:background="@android:color/transparent"
-            app:srcCompat="@android:drawable/ic_menu_add" />
     </LinearLayout>
 
 

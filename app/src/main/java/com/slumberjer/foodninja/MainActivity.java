@@ -68,28 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void loadWindow(int p) {
-        myDialogWindow = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);//Theme_DeviceDefault_Dialog_NoActionBar
-        myDialogWindow.setContentView(R.layout.dialog_window);
-        Button btnpress = myDialogWindow.findViewById(R.id.button2);
-        TextView myname,myphone,myaddress,myloc;
-        myname = myDialogWindow.findViewById(R.id.textView1);
-        myphone = myDialogWindow.findViewById(R.id.textView2);
-        myaddress = myDialogWindow.findViewById(R.id.textView3);
-        myloc = myDialogWindow.findViewById(R.id.textView4);
-        myname.setText(restlist.get(p).get("name"));
-        myphone.setText(restlist.get(p).get("phone"));
-        myaddress.setText(restlist.get(p).get("address"));
-        myloc.setText(restlist.get(p).get("location"));
 
-        btnpress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialogWindow.dismiss();
-            }
-        });
-        myDialogWindow.show();
-    }
 
     private void loadRestaurant(final String loc) {
         class LoadRestaurant extends AsyncTask<Void,Void,String>{
@@ -115,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
                         JSONArray restarray = jsonObject.getJSONArray("rest");
                         Log.e("HANIS",jsonObject.toString());
                         for (int i=0;i<restarray.length();i++){
-
                             JSONObject c = restarray.getJSONObject(i);
                             String rid = c.getString("restid");
                             String rname = c.getString("name");
