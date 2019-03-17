@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Food Ninja</string>
+    <string name="youremail">Your Email</string>
+    <string name="yourpassword">Your Password</string>
+    <string name="login">Login</string>
+    <string name="rememberme">Remember Me</string>
+    <string name="newregistration">Register Here</string>
+    <string name="forgotpassword">Forgot Password</string>
+    <string name="clicktotake">Click above to take picture</string>
+    <string name="location">Location</string>
+    <string name="phone">Mobile Phone</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="sethomelocation">Home Location</string>
+    <string name="register">Register</string>
+    <string name="alreadyregister">Already Register</string>
+    <string name="registration">Registration</string>
+    <string name="close">CLOSE</string>
+    <string name="dialogtakepicture">Take Picture?</string>
+    <string name="dialogtakepicturea">Make sure to use your own picture</string>
+    <string name="yesbutton">Yes</string>
+    <string name="nobutton">No</string>
+    <string name="selectlocation">Select Location</string>
+    <string name="cart">My Cart</string>
+    <string name="registerdialognew">Register new account</string>
+    <string name="registrationprocess">Registration in progress</string>
+    <string name="registerfor">Register for</string>
+
+    <string-array name="location">
+        <item>All</item>
+        <item>Changlun</item>
+        <item>Sintok</item>
+        <item>Bukit Kayu Hitam</item>
+    </string-array>
+
+</resources>
