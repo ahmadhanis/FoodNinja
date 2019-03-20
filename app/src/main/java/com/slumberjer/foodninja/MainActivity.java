@@ -27,7 +27,6 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     ListView lvrest;
-    Dialog myDialogWindow;
     ArrayList<HashMap<String, String>> restlist;
     Spinner sploc;
     @Override
