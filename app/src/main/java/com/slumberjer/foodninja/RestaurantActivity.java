@@ -1,19 +1,24 @@
 package com.slumberjer.foodninja;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +32,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class RestaurantActivity extends AppCompatActivity {
 TextView tvrname,tvrphone,tvraddress,tvrloc;
@@ -72,13 +78,60 @@ ArrayList<HashMap<String, String>> foodlist;
             myDialogWindow.setContentView(R.layout.dialog_window);
             myDialogWindow.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             TextView tvfname,tvfprice,tvfquan;
+            ImageView imgfood = myDialogWindow.findViewById(R.id.imageViewFood);
+            final Spinner spquan = myDialogWindow.findViewById(R.id.spinner2);
+            Button btnorder = myDialogWindow.findViewById(R.id.button2);
             tvfname= myDialogWindow.findViewById(R.id.textView12);
             tvfprice = myDialogWindow.findViewById(R.id.textView13);
             tvfquan = myDialogWindow.findViewById(R.id.textView14);
             tvfname.setText(foodlist.get(p).get("foodname"));
             tvfprice.setText(foodlist.get(p).get("foodprice"));
             tvfquan.setText(foodlist.get(p).get("foodquantity"));
+            String foodid =(foodlist.get(p).get("foodid"));
+            final String foodname = foodlist.get(p).get("foodname");
+            btnorder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String q = spquan.getSelectedItem().toString();
+                    dialogOrder(foodname,q);
+                }
+            });
+            int quan = Integer.parseInt(foodlist.get(p).get("foodquantity"));
+            List<String> list = new ArrayList<String>();
+            for (int i = 1; i<=quan;i++){
+                list.add(""+i);
+            }
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spquan.setAdapter(dataAdapter);
+
+            Picasso.with(this).load("http://uumresearch.com/foodninja/foodimages/"+foodid+".jpg")
+                .memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE)
+                .fit().into(imgfood);
             myDialogWindow.show();
+    }
+
+    private void dialogOrder(final String fn, final String q) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Order "+fn+ " with quantiy "+q);
+
+        alertDialogBuilder
+                .setMessage("Are you sure")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        //insertCart(foodid,userid,q,price,fn);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     private void loadFoods(final String restid) {
@@ -108,8 +161,8 @@ ArrayList<HashMap<String, String>> foodlist;
                         HashMap<String,String> foodlisthash = new HashMap<>();
                         foodlisthash.put("foodid",jsid);
                         foodlisthash.put("foodname",jsfname);
-                        foodlisthash.put("foodprice","Price:RM"+jsfprice);
-                        foodlisthash.put("foodquantity","Available:"+jsquan);
+                        foodlisthash.put("foodprice",jsfprice);
+                        foodlisthash.put("foodquantity",jsquan);
                         foodlist.add(foodlisthash);
                     }
                 }catch(JSONException e){}
