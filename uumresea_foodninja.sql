@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 20, 2019 at 09:43 PM
+-- Generation Time: Mar 25, 2019 at 09:47 PM
 -- Server version: 10.0.37-MariaDB
 -- PHP Version: 7.2.7
 
@@ -43,7 +43,9 @@ CREATE TABLE `CART` (
 --
 
 INSERT INTO `CART` (`ORDERID`, `FOODID`, `USERID`, `QUANTITY`, `PRICE`, `FOODNAME`, `STATUS`) VALUES
-(1, '2', 'slumberjer@gmail.com', '10', '4.50', 'Mee Goreng Mamak', 'not complete');
+(1, '1', 'slumberjer@gmail.com', '4', '5.00', 'Mee Goreng Mamak', 'notpaid'),
+(2, '4', 'slumberjer@gmail.com', '1', '2.50', 'Laksam', 'notpaid'),
+(3, '3', 'slumberjer@gmail.com', '1', '2.00', 'Roti Canai', 'notpaid');
 
 -- --------------------------------------------------------
 
@@ -115,7 +117,10 @@ INSERT INTO `USER` (`EMAIL`, `PASSWORD`, `PHONE`, `NAME`, `LOCATION`) VALUES
 ('abcd@gmail.com', '8cb2237d0679ca88db6464eac60da96345513964', '01234545959', 'John', 'Changlun'),
 ('slumberjer@gmail.com', '1b64dad048eda4f2a22621490c0ea7a1db37ad43', '0194702493', 'Hanis', 'All'),
 ('ahmad@gmail.com', '8cb2237d0679ca88db6464eac60da96345513964', '01934455765', 'Ahmad', 'All'),
-('qq1819301928@gmail.com', '0c8134c9a330eac5a89c4f18bcfe77e4780be309', '01135747336', 'Yang', 'Sintok');
+('qq1819301928@gmail.com', '0c8134c9a330eac5a89c4f18bcfe77e4780be309', '01135747336', 'Yang', 'Sintok'),
+('nur28@gmail.com', '711880e2bde35b7f74ac2a54f37e82524aa797b6', '018', 'nur', 'All'),
+('tupperware@gmail.com', '7c222fb2927d828af22f592134e8932480637c0d', '0163335555', 'tupperware', 'Sintok'),
+('gemini285@gmail.com', '367ac64a16d19e2afefcf7c5fab8666dda92f9de', '018', 'gemini', 'All');
 
 --
 -- Indexes for dumped tables
@@ -153,7 +158,7 @@ ALTER TABLE `USER`
 -- AUTO_INCREMENT for table `CART`
 --
 ALTER TABLE `CART`
-  MODIFY `ORDERID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ORDERID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `FOODS`
