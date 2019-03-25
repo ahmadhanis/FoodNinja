@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 17, 2019 at 10:44 AM
+-- Generation Time: Mar 25, 2019 at 09:47 PM
 -- Server version: 10.0.37-MariaDB
 -- PHP Version: 7.2.7
 
@@ -25,11 +25,36 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `CART`
+--
+
+CREATE TABLE `CART` (
+  `ORDERID` int(10) NOT NULL,
+  `FOODID` varchar(10) NOT NULL,
+  `USERID` varchar(40) NOT NULL,
+  `QUANTITY` varchar(10) NOT NULL,
+  `PRICE` varchar(10) NOT NULL,
+  `FOODNAME` varchar(30) NOT NULL,
+  `STATUS` varchar(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `CART`
+--
+
+INSERT INTO `CART` (`ORDERID`, `FOODID`, `USERID`, `QUANTITY`, `PRICE`, `FOODNAME`, `STATUS`) VALUES
+(1, '1', 'slumberjer@gmail.com', '4', '5.00', 'Mee Goreng Mamak', 'notpaid'),
+(2, '4', 'slumberjer@gmail.com', '1', '2.50', 'Laksam', 'notpaid'),
+(3, '3', 'slumberjer@gmail.com', '1', '2.00', 'Roti Canai', 'notpaid');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `FOODS`
 --
 
 CREATE TABLE `FOODS` (
-  `FOOID` int(5) NOT NULL,
+  `FOODID` int(5) NOT NULL,
   `FOODNAME` varchar(50) NOT NULL,
   `FOODPRICE` varchar(5) NOT NULL,
   `QUANTITY` varchar(5) NOT NULL,
@@ -40,8 +65,8 @@ CREATE TABLE `FOODS` (
 -- Dumping data for table `FOODS`
 --
 
-INSERT INTO `FOODS` (`FOOID`, `FOODNAME`, `FOODPRICE`, `QUANTITY`, `RESTID`) VALUES
-(1, 'Nasi Goreng Mamak', '5.00', '50', '1'),
+INSERT INTO `FOODS` (`FOODID`, `FOODNAME`, `FOODPRICE`, `QUANTITY`, `RESTID`) VALUES
+(1, 'Mee Goreng Mamak', '5.00', '50', '1'),
 (2, 'Laksa Perak', '4.50', '20', '3'),
 (3, 'Roti Canai', '2.00', '100', '2'),
 (4, 'Laksam', '2.50', '30', '1');
@@ -91,17 +116,27 @@ INSERT INTO `USER` (`EMAIL`, `PASSWORD`, `PHONE`, `NAME`, `LOCATION`) VALUES
 ('abc@gmail.com', '5975676ae179641188b2bde3c8d545d8334991f6', '0194702439', 'Ahmad Hanis', 'Changlun'),
 ('abcd@gmail.com', '8cb2237d0679ca88db6464eac60da96345513964', '01234545959', 'John', 'Changlun'),
 ('slumberjer@gmail.com', '1b64dad048eda4f2a22621490c0ea7a1db37ad43', '0194702493', 'Hanis', 'All'),
-('ahmad@gmail.com', '8cb2237d0679ca88db6464eac60da96345513964', '01934455765', 'Ahmad', 'All');
+('ahmad@gmail.com', '8cb2237d0679ca88db6464eac60da96345513964', '01934455765', 'Ahmad', 'All'),
+('qq1819301928@gmail.com', '0c8134c9a330eac5a89c4f18bcfe77e4780be309', '01135747336', 'Yang', 'Sintok'),
+('nur28@gmail.com', '711880e2bde35b7f74ac2a54f37e82524aa797b6', '018', 'nur', 'All'),
+('tupperware@gmail.com', '7c222fb2927d828af22f592134e8932480637c0d', '0163335555', 'tupperware', 'Sintok'),
+('gemini285@gmail.com', '367ac64a16d19e2afefcf7c5fab8666dda92f9de', '018', 'gemini', 'All');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `CART`
+--
+ALTER TABLE `CART`
+  ADD PRIMARY KEY (`ORDERID`);
+
+--
 -- Indexes for table `FOODS`
 --
 ALTER TABLE `FOODS`
-  ADD PRIMARY KEY (`FOOID`);
+  ADD PRIMARY KEY (`FOODID`);
 
 --
 -- Indexes for table `RESTAURANT`
@@ -120,10 +155,16 @@ ALTER TABLE `USER`
 --
 
 --
+-- AUTO_INCREMENT for table `CART`
+--
+ALTER TABLE `CART`
+  MODIFY `ORDERID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `FOODS`
 --
 ALTER TABLE `FOODS`
-  MODIFY `FOOID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `FOODID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `RESTAURANT`
