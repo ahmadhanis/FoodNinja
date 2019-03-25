@@ -38,8 +38,9 @@ public class RestaurantActivity extends AppCompatActivity {
 TextView tvrname,tvrphone,tvraddress,tvrloc;
 ImageView imgRest;
 ListView lvfood;
-ArrayList<HashMap<String, String>> foodlist;
-
+    Dialog myDialogWindow;
+    ArrayList<HashMap<String, String>> foodlist;
+    String userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ ArrayList<HashMap<String, String>> foodlist;
         String rphone = bundle.getString("phone");
         String raddress = bundle.getString("address");
         String rlocation = bundle.getString("location");
+        userid = bundle.getString("userid");
         initView();
         tvrname.setText(rname);
         tvraddress.setText(raddress);
@@ -74,7 +76,7 @@ ArrayList<HashMap<String, String>> foodlist;
     }
 
     private void showFoodDetail(int p) {
-            Dialog myDialogWindow = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);//Theme_DeviceDefault_Dialog_NoActionBar
+            myDialogWindow = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);//Theme_DeviceDefault_Dialog_NoActionBar
             myDialogWindow.setContentView(R.layout.dialog_window);
             myDialogWindow.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             TextView tvfname,tvfprice,tvfquan;
@@ -87,13 +89,14 @@ ArrayList<HashMap<String, String>> foodlist;
             tvfname.setText(foodlist.get(p).get("foodname"));
             tvfprice.setText(foodlist.get(p).get("foodprice"));
             tvfquan.setText(foodlist.get(p).get("foodquantity"));
-            String foodid =(foodlist.get(p).get("foodid"));
+            final String foodid =(foodlist.get(p).get("foodid"));
             final String foodname = foodlist.get(p).get("foodname");
+            final String foodprice = foodlist.get(p).get("foodprice");
             btnorder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String q = spquan.getSelectedItem().toString();
-                    dialogOrder(foodname,q);
+                    String fquan = spquan.getSelectedItem().toString();
+                    dialogOrder(foodid,foodname,fquan,foodprice);
                 }
             });
             int quan = Integer.parseInt(foodlist.get(p).get("foodquantity"));
@@ -112,17 +115,16 @@ ArrayList<HashMap<String, String>> foodlist;
             myDialogWindow.show();
     }
 
-    private void dialogOrder(final String fn, final String q) {
+    private void dialogOrder(final String foodid, final String foodname, final String fquan, final String foodprice) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Order "+fn+ " with quantiy "+q);
+        alertDialogBuilder.setTitle("Order "+foodname+ " with quantity "+fquan);
 
         alertDialogBuilder
                 .setMessage("Are you sure")
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
-                        //insertCart(foodid,userid,q,price,fn);
+                        insertCart(foodid,foodname,fquan,foodprice);
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -132,6 +134,38 @@ ArrayList<HashMap<String, String>> foodlist;
                 });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    private void insertCart(final String foodid, final String foodname, final String fquan, final String foodprice) {
+        class InsertCart extends AsyncTask<Void,Void,String>{
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                HashMap<String,String> hashMap = new HashMap<>();
+                hashMap.put("foodid",foodid);
+                hashMap.put("foodname",foodname);
+                hashMap.put("quantity",fquan);
+                hashMap.put("foodprice",foodprice);
+                hashMap.put("userid",userid);
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendPostRequest("http://uumresearch.com/foodninja/php/insert_cart.php",hashMap);
+                return s;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if (s.equalsIgnoreCase("success")){
+                    Toast.makeText(RestaurantActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                    myDialogWindow.dismiss();
+                }else{
+                    Toast.makeText(RestaurantActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        }
+        InsertCart insertCart = new InsertCart();
+        insertCart.execute();
     }
 
     private void loadFoods(final String restid) {
@@ -194,6 +228,9 @@ ArrayList<HashMap<String, String>> foodlist;
         switch (item.getItemId()) {
             case android.R.id.home:
                 Intent intent = new Intent(RestaurantActivity.this,MainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userid",userid);
+                intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
                 this.finish();

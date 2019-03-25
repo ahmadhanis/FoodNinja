@@ -110,6 +110,9 @@ public class LoginActivity extends AppCompatActivity {
                 if(s.equalsIgnoreCase("success")){
                     Toast.makeText(LoginActivity.this, s, Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("userid",email);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 }else{
                     Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();

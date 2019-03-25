@@ -19,7 +19,7 @@
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.65"
+            android:layout_weight="0.5"
             android:text="@string/selectlocation"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -28,11 +28,10 @@
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="100dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_weight="0.35"
+            android:layout_weight="0.5"
             android:background="@drawable/edittextshape"
             android:entries="@array/location"
             android:padding="10dp" />
