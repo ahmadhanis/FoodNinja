@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageViewFood"
         android:layout_width="match_parent"
-        android:layout_height="225dp"
+        android:layout_height="200dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
@@ -25,7 +25,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:layout_weight="0.3"
         android:orientation="vertical"
@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
-                android:text="Price" />
+                android:text="Price(RM)" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -99,7 +99,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="1">
 
