@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 25, 2019 at 09:47 PM
+-- Generation Time: Mar 28, 2019 at 01:55 PM
 -- Server version: 10.0.37-MariaDB
 -- PHP Version: 7.2.7
 
@@ -29,23 +29,25 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `CART` (
-  `ORDERID` int(10) NOT NULL,
   `FOODID` varchar(10) NOT NULL,
   `USERID` varchar(40) NOT NULL,
   `QUANTITY` varchar(10) NOT NULL,
   `PRICE` varchar(10) NOT NULL,
   `FOODNAME` varchar(30) NOT NULL,
-  `STATUS` varchar(20) NOT NULL
+  `STATUS` varchar(20) NOT NULL,
+  `RESTID` varchar(10) NOT NULL,
+  `ORDERID` varchar(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `CART`
 --
 
-INSERT INTO `CART` (`ORDERID`, `FOODID`, `USERID`, `QUANTITY`, `PRICE`, `FOODNAME`, `STATUS`) VALUES
-(1, '1', 'slumberjer@gmail.com', '4', '5.00', 'Mee Goreng Mamak', 'notpaid'),
-(2, '4', 'slumberjer@gmail.com', '1', '2.50', 'Laksam', 'notpaid'),
-(3, '3', 'slumberjer@gmail.com', '1', '2.00', 'Roti Canai', 'notpaid');
+INSERT INTO `CART` (`FOODID`, `USERID`, `QUANTITY`, `PRICE`, `FOODNAME`, `STATUS`, `RESTID`, `ORDERID`) VALUES
+('3', 'slumberjer@gmail.com', '94', '2.00', 'Roti Canai', 'paid', '2', '28032019-OWjohGu'),
+('1', 'slumberjer@gmail.com', '1', '5.00', 'Mee Goreng Mamak', 'paid', '1', '28032019-OWjohGu'),
+('3', 'slumberjer@gmail.com', '5', '2.00', 'Roti Canai', 'paid', '2', '28032019-OWjohGu'),
+('2', 'slumberjer@gmail.com', '1', '4.50', 'Laksa Perak', 'paid', '3', '28032019-OWjohGu');
 
 -- --------------------------------------------------------
 
@@ -66,10 +68,30 @@ CREATE TABLE `FOODS` (
 --
 
 INSERT INTO `FOODS` (`FOODID`, `FOODNAME`, `FOODPRICE`, `QUANTITY`, `RESTID`) VALUES
-(1, 'Mee Goreng Mamak', '5.00', '50', '1'),
-(2, 'Laksa Perak', '4.50', '20', '3'),
+(1, 'Mee Goreng Mamak', '5.00', '49', '1'),
+(2, 'Laksa Perak', '4.50', '19', '3'),
 (3, 'Roti Canai', '2.00', '100', '2'),
 (4, 'Laksam', '2.50', '30', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ORDERED`
+--
+
+CREATE TABLE `ORDERED` (
+  `ORDERID` varchar(20) NOT NULL,
+  `USERID` varchar(10) NOT NULL,
+  `TOTAL` varchar(10) NOT NULL,
+  `DATE` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ORDERED`
+--
+
+INSERT INTO `ORDERED` (`ORDERID`, `USERID`, `TOTAL`, `DATE`) VALUES
+('28032019-OWjohGu', 'slumberjer', '207.5', '2019-03-28 05:54:37.867905');
 
 -- --------------------------------------------------------
 
@@ -127,12 +149,6 @@ INSERT INTO `USER` (`EMAIL`, `PASSWORD`, `PHONE`, `NAME`, `LOCATION`) VALUES
 --
 
 --
--- Indexes for table `CART`
---
-ALTER TABLE `CART`
-  ADD PRIMARY KEY (`ORDERID`);
-
---
 -- Indexes for table `FOODS`
 --
 ALTER TABLE `FOODS`
@@ -153,12 +169,6 @@ ALTER TABLE `USER`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `CART`
---
-ALTER TABLE `CART`
-  MODIFY `ORDERID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `FOODS`
