@@ -24,9 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:background="@drawable/edittextshapelogin"
-        android:ems="10"
         android:hint="@string/youremail"
-        android:inputType="textEmailAddress"
+        android:importantForAutofill="no"
         android:padding="10dp" />
 
     <EditText
