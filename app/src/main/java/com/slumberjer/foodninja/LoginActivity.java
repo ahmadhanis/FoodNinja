@@ -107,15 +107,18 @@ public class LoginActivity extends AppCompatActivity {
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
-                if(s.equalsIgnoreCase("success")){
-                    Toast.makeText(LoginActivity.this, s, Toast.LENGTH_LONG).show();
+                if(s.equalsIgnoreCase("failed")){
+                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
+                }else if (s.length()>7){
+                    //Toast.makeText(LoginActivity.this, s, Toast.LENGTH_LONG).show();
+                    String[] val = s.split(",");
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("userid",email);
+                    bundle.putString("name",val[0]);
+                    bundle.putString("phone",val[1]);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                }else{
-                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
                 }
             }
         }

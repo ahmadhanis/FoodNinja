@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/foodninjared"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RestaurantActivity"></activity>
+        <activity android:name=".PaymentActivity"></activity>
+        <activity android:name=".RestaurantActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".RegisterActivity"

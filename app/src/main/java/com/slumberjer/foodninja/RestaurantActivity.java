@@ -40,7 +40,7 @@ ImageView imgRest;
 ListView lvfood;
     Dialog myDialogWindow;
     ArrayList<HashMap<String, String>> foodlist;
-    String userid;
+    String userid,restid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ ListView lvfood;
         setContentView(R.layout.activity_restaurant);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        String restid = bundle.getString("restid");
+        restid = bundle.getString("restid");
         String rname = bundle.getString("name");
         String rphone = bundle.getString("phone");
         String raddress = bundle.getString("address");
@@ -61,13 +61,12 @@ ListView lvfood;
         tvrloc.setText(rlocation);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Picasso.with(this).load("http://uumresearch.com/foodninja/images/"+restid+".jpg")
-                .memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE)
                 .fit().into(imgRest);
+ //  .memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE)
 
         lvfood.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(RestaurantActivity.this, foodlist.get(position).get("foodname"), Toast.LENGTH_SHORT).show();
                 showFoodDetail(position);
             }
         });
@@ -143,6 +142,7 @@ ListView lvfood;
             protected String doInBackground(Void... voids) {
                 HashMap<String,String> hashMap = new HashMap<>();
                 hashMap.put("foodid",foodid);
+                hashMap.put("restid",restid);
                 hashMap.put("foodname",foodname);
                 hashMap.put("quantity",fquan);
                 hashMap.put("foodprice",foodprice);
@@ -155,9 +155,11 @@ ListView lvfood;
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
+                //Toast.makeText(RestaurantActivity.this,s, Toast.LENGTH_SHORT).show();
                 if (s.equalsIgnoreCase("success")){
                     Toast.makeText(RestaurantActivity.this, "Success", Toast.LENGTH_SHORT).show();
                     myDialogWindow.dismiss();
+                    loadFoods(restid);
                 }else{
                     Toast.makeText(RestaurantActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
@@ -200,7 +202,7 @@ ListView lvfood;
                         foodlist.add(foodlisthash);
                     }
                 }catch(JSONException e){}
-                ListAdapter adapter = new SimpleAdapter(
+                ListAdapter adapter = new CustomAdapterFood(
                         RestaurantActivity.this, foodlist,
                         R.layout.food_list_rest, new String[]
                         {"foodname","foodprice","foodquantity"}, new int[]

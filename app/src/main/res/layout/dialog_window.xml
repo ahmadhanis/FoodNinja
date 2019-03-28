@@ -120,6 +120,7 @@
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
             android:background="@drawable/buttonsquare"
             android:text="Order"
             android:textColor="@color/colorWhite" />

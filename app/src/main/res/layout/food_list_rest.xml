@@ -14,17 +14,17 @@
         android:orientation="horizontal"
         android:weightSum="1">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.7"
+            android:layout_weight="0.75"
             app:srcCompat="@mipmap/foodninjared" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
+            android:layout_weight="0.25"
             android:orientation="vertical"
             android:paddingLeft="4dp">
 
@@ -63,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
-                    android:text="Price" />
+                    android:text="Price(RM)" />
 
                 <TextView
                     android:id="@+id/textView2"

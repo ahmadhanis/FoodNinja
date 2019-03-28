@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
 
                     // Try to sleep the thread for 20 milliseconds
                     try{
-                        Thread.sleep(20);
+                        Thread.sleep(10);
                     }catch(InterruptedException e){
                         e.printStackTrace();
                     }
