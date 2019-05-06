@@ -33,5 +33,6 @@
         <item>Sintok</item>
         <item>Bukit Kayu Hitam</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

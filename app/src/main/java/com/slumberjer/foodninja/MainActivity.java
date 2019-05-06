@@ -153,6 +153,16 @@ public class MainActivity extends AppCompatActivity {
             case R.id.mycart:
                 loadCartData();
                 return true;
+            case R.id.myprofile:
+                Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userid",userid);
+                bundle.putString("username",name);
+                bundle.putString("phone",phone);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
