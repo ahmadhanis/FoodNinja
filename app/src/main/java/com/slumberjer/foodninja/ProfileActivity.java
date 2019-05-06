@@ -78,8 +78,7 @@ public class ProfileActivity extends AppCompatActivity implements LocationListen
         userid = bundle.getString("userid");//email
         name = bundle.getString("username");  //full name
         phone = bundle.getString("phone"); //phone
-        tvuserid.setText(userid);
-        tvname.setText(name);
+
         tvphone.setText(phone);
         String image_url = "http://uumresearch.com/foodninja/profileimages/" + phone + ".jpg";
         Picasso.with(this).load(image_url)
@@ -145,6 +144,8 @@ public class ProfileActivity extends AppCompatActivity implements LocationListen
                     JSONObject jsonObject = new JSONObject(s);
                     JSONArray restarray = jsonObject.getJSONArray("user");
                     JSONObject c = restarray.getJSONObject(0);
+                    name = c.getString("name");
+                    userid = c.getString("email");
                     location = c.getString("location");
                     latitude = c.getString("latitude");
                     longitude = c.getString("longitude");
@@ -157,6 +158,8 @@ public class ProfileActivity extends AppCompatActivity implements LocationListen
                         sploc.setSelection(i);
                     }
                 }
+                tvuserid.setText(userid);
+                tvname.setText(name);
                 tvlocation.setText("https://www.google.com/maps/@"+latitude+","+longitude+",15z");
             }
         }
@@ -188,6 +191,14 @@ public class ProfileActivity extends AppCompatActivity implements LocationListen
                 super.onPostExecute(s);
                 if (s.equalsIgnoreCase("success")) {
                     Toast.makeText(ProfileActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("userid", userid);
+                    bundle.putString("name", name);
+                    bundle.putString("phone", phone);
+                    intent.putExtras(bundle);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(ProfileActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
