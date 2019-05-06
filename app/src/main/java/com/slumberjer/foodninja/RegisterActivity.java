@@ -1,16 +1,20 @@
 package com.slumberjer.foodninja;
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -18,10 +22,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -34,9 +48,12 @@ public class RegisterActivity extends AppCompatActivity {
 Spinner sploc;
 EditText edEmail,edPass,edPhone,edName;
 Button btnReg;
-TextView tvlogin;
+ImageButton btnmapwindown;
+TextView tvlogin,tvlocation;
 ImageView imgprofile;
 User user;
+Dialog myDialogMap;
+String hlatitude,hlongitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +62,12 @@ User user;
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUserInput();
+                if (hlatitude.length()>1){
+                    registerUserInput();
+                }else{
+                    Toast.makeText(RegisterActivity.this, "Please select your home from map", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         tvlogin.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +82,12 @@ User user;
             @Override
             public void onClick(View v) {
                 dialogTakePicture();
+            }
+        });
+        btnmapwindown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadMapWindow();
             }
         });
     }
@@ -130,8 +158,9 @@ User user;
         phone = edPhone.getText().toString();
         name = edName.getText().toString();
         location = sploc.getSelectedItem().toString();
+
         //error checking here
-        user = new User(name,phone,email,pass,location);
+        user = new User(name,phone,email,pass,location,hlatitude,hlongitude);
         //insertData(user);
         registerUserDialog();
     }
@@ -227,6 +256,8 @@ User user;
         btnReg = findViewById(R.id.btn_register);
         tvlogin = findViewById(R.id.tvregister);
         imgprofile = findViewById(R.id.imageView);
+        tvlocation = findViewById(R.id.textLoc);
+        btnmapwindown = findViewById(R.id.btnMap);
     }
 
     public class Encode_image extends AsyncTask<String,String,Void> {
@@ -259,11 +290,18 @@ User user;
 
                 @Override
                 protected String doInBackground(Void... params) {
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put("encoded_string", encoded_string);
-                    map.put("image_name", image_name);
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("encoded_string", encoded_string);
+                    hashMap.put("image_name", image_name);
+                    hashMap.put("email",user.email);
+                    hashMap.put("password",user.password);
+                    hashMap.put("phone",user.phone);
+                    hashMap.put("name",user.name);
+                    hashMap.put("location",user.location);
+                    hashMap.put("latitude",user.latitude);
+                    hashMap.put("longitude",user.longitude);
                     RequestHandler rh = new RequestHandler();//request server connection
-                    String s = rh.sendPostRequest("http://uumresearch.com/foodninja/php/upload_image.php", map);
+                    String s = rh.sendPostRequest("http://uumresearch.com/foodninja/php/insert_registration.php", hashMap);
                     return s;
                 }
 
@@ -271,8 +309,10 @@ User user;
                 protected void onPostExecute(String s) {
                     super.onPostExecute(s);
                     if (s.equalsIgnoreCase("Success")) {
-                        insertData();
-                        // Toast.makeText(RegisterActivity.this, "Success Upload Image", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Registration Success", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                        RegisterActivity.this.finish();
+                        startActivity(intent);
                     }else{
                         Toast.makeText(RegisterActivity.this, "Failed Registration", Toast.LENGTH_SHORT).show();
                     }
@@ -281,5 +321,56 @@ User user;
             UploadAll uploadall = new UploadAll();
             uploadall.execute();
         }
+    }
+
+    private void loadMapWindow() {
+        myDialogMap = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);//Theme_DeviceDefault_Dialog_NoActionBar
+        myDialogMap.setContentView(R.layout.map_window);
+        myDialogMap.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        Button btnsavemap = myDialogMap.findViewById(R.id.btnclosemap);
+        MapView mMapView = myDialogMap.findViewById(R.id.mapView);
+        MapsInitializer.initialize(this);
+        mMapView.onCreate(myDialogMap.onSaveInstanceState());
+        mMapView.onResume();
+        mMapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(final GoogleMap googleMap) {
+                LatLng allpos;
+                LatLng posisiabsen = new LatLng(6.413395, 100.426868); ////your lat lng
+                googleMap.addMarker(new MarkerOptions().position(posisiabsen).title("HOME").icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_AZURE))).showInfoWindow();
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(posisiabsen));
+                googleMap.getUiSettings().setZoomControlsEnabled(true);
+                googleMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f));
+                if (ActivityCompat.checkSelfPermission(RegisterActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(RegisterActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                googleMap.setMyLocationEnabled(true);
+                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        googleMap.clear();
+                        hlatitude = String.valueOf(latLng.latitude);
+                        hlongitude = String.valueOf(latLng.longitude);
+                        googleMap.addMarker(new MarkerOptions().position(latLng).title("New Home").icon(BitmapDescriptorFactory
+                                .defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).showInfoWindow();
+                    }
+                });
+            }
+        });
+        btnsavemap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hlatitude.length()>5){
+                    myDialogMap.dismiss();
+                    tvlocation.setText("https://www.google.com/maps/@"+hlatitude+","+hlongitude+",15z");
+
+                }else{
+                    Toast.makeText(RegisterActivity.this, "Please select home location", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        myDialogMap.show();
     }
 }

@@ -1,8 +1,10 @@
 package com.slumberjer.foodninja;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -10,6 +12,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -46,7 +49,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity implements LocationListener {
     String userid, name, phone, location, latitude, longitude;
     Spinner sploc;
-    TextView tvphone;
+    TextView tvphone,tvlocation;
     EditText tvuserid, tvname, edoldpass, ednewpass;
     CircleImageView imgprofile;
     Button btnUpdate;
@@ -71,6 +74,7 @@ public class ProfileActivity extends AppCompatActivity implements LocationListen
         sploc = findViewById(R.id.spinLoc);
         btnUpdate = findViewById(R.id.button5);
         btnloc = findViewById(R.id.btnloc);
+        tvlocation  = findViewById(R.id.tvloc);
         userid = bundle.getString("userid");//email
         name = bundle.getString("username");  //full name
         phone = bundle.getString("phone"); //phone
@@ -90,7 +94,8 @@ public class ProfileActivity extends AppCompatActivity implements LocationListen
                 String oldpass = edoldpass.getText().toString();
                 String newpass = ednewpass.getText().toString();
                 String newloc = sploc.getSelectedItem().toString();
-                updateProfile(newemail, newname, newloc, oldpass, newpass);
+                dialogUpdate(newemail, newname, newloc, oldpass, newpass);
+
             }
         });
         btnloc.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +157,7 @@ public class ProfileActivity extends AppCompatActivity implements LocationListen
                         sploc.setSelection(i);
                     }
                 }
+                tvlocation.setText("https://www.google.com/maps/@"+latitude+","+longitude+",15z");
             }
         }
         LoadUserProfile loadUserProfile = new LoadUserProfile();
@@ -240,6 +246,8 @@ public class ProfileActivity extends AppCompatActivity implements LocationListen
                     latitude = slatitude;
                     longitude = slongitude;
                     myDialogMap.dismiss();
+                    tvlocation.setText("https://www.google.com/maps/@"+latitude+","+longitude+",15z");
+                    locationManager.removeUpdates(ProfileActivity.this);
                 }else{
                     Toast.makeText(ProfileActivity.this, "Please select home location", Toast.LENGTH_SHORT).show();
                 }
@@ -345,5 +353,27 @@ public class ProfileActivity extends AppCompatActivity implements LocationListen
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+
+    private void dialogUpdate(final String newemail, final String newname, final String newloc, final String oldpass, final String newpass) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Profile");
+
+        alertDialogBuilder
+                .setMessage("Update this profile")
+                .setCancelable(false)
+                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        updateProfile(newemail, newname, newloc, oldpass, newpass);
+                    }
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
