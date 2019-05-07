@@ -1,5 +1,6 @@
 package com.slumberjer.foodninja;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,11 +19,12 @@ import java.util.HashMap;
 
 
 public class LoginActivity extends AppCompatActivity {
-    TextView tvreg;
+    TextView tvreg,tvforgot;
     EditText edemail,edpassword;
     Button btnlogin;
     SharedPreferences sharedPreferences;
     CheckBox cbrem;
+    Dialog dialogforgotpass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         btnlogin = findViewById(R.id.buttonLogin);
         tvreg = findViewById(R.id.tvRegister);
         cbrem = findViewById(R.id.checkBox);
+        tvforgot = findViewById(R.id.textForgot);
         tvreg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +61,12 @@ public class LoginActivity extends AppCompatActivity {
                     String pass = edpassword.getText().toString();
                     savePref(email,pass);
                 }
+            }
+        });
+        tvforgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgotPasswordDialog();
             }
         });
         loadPref();
@@ -124,5 +133,48 @@ public class LoginActivity extends AppCompatActivity {
         }
         LoginUser loginUser = new LoginUser();
         loginUser.execute();
+    }
+
+    void forgotPasswordDialog(){
+        dialogforgotpass = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);//Theme_DeviceDefault_Dialog_NoActionBar
+        dialogforgotpass.setContentView(R.layout.forgot_password);
+        dialogforgotpass.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        final EditText edemail = dialogforgotpass.findViewById(R.id.edtEmail);
+        Button btnsendemail = dialogforgotpass.findViewById(R.id.btnsendemail);
+        btnsendemail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String forgotemail =  edemail.getText().toString();
+                sendPassword(forgotemail);
+            }
+        });
+        dialogforgotpass.show();
+
+    }
+
+    private void sendPassword(final String forgotemail) {
+        class SendPassword extends AsyncTask<Void,String,String>{
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                HashMap<String,String> hashMap = new HashMap();
+                hashMap.put("email",forgotemail);
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendPostRequest("http://uumresearch.com/foodninja/php/verify_email.php",hashMap);
+                return s;
+            }
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if (s.equalsIgnoreCase("success")){
+                    Toast.makeText(LoginActivity.this, "Success. Check your email", Toast.LENGTH_LONG).show();
+                    dialogforgotpass.dismiss();
+                }else{
+                    Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+        SendPassword sendPassword = new SendPassword();
+        sendPassword.execute();
     }
 }
