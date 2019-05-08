@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 06, 2019 at 03:07 PM
+-- Generation Time: May 09, 2019 at 12:06 AM
 -- Server version: 10.0.37-MariaDB
 -- PHP Version: 7.2.7
 
@@ -44,42 +44,17 @@ CREATE TABLE `CART` (
 --
 
 INSERT INTO `CART` (`FOODID`, `USERID`, `QUANTITY`, `PRICE`, `FOODNAME`, `STATUS`, `RESTID`, `ORDERID`) VALUES
-('4', 'slumberjer@gmail.com', '2', '2.50', 'Laksam', 'paid', '1', '28032019-OWjohGu'),
-('2', 'slumberjer@gmail.com', '3', '4.50', 'Laksa Perak', 'paid', '3', '28032019-OWjohGu'),
-('3', 'slumberjer@gmail.com', '5', '2.00', 'Roti Canai', 'paid', '2', '28032019-OWjohGu'),
-('3', 'slumberjer@gmail.com', '94', '2.00', 'Roti Canai', 'paid', '2', '28032019-OWjohGu'),
-('2', 'slumberjer@gmail.com', '1', '4.50', 'Laksa Perak', 'paid', '3', '28032019-OWjohGu'),
-('1', 'slumberjer@gmail.com', '1', '5.00', 'Mee Goreng Mamak', 'paid', '1', '28032019-OWjohGu'),
-('3', 'slumberjer@gmail.com', '5', '2.00', 'Roti Canai', 'paid', '2', '28032019-OWjohGu'),
-('2', 'slumberjer@gmail.com', '1', '4.50', 'Laksa Perak', 'paid', '3', '28032019-OWjohGu'),
-('1', 'slumberjer@gmail.com', '1', '5.00', 'Mee Goreng Mamak', 'paid', '1', '28032019-OWjohGu'),
-('4', 'slumberjer@gmail.com', '4', '2.50', 'Laksam', 'paid', '1', '28032019-OWjohGu'),
-('1', 'slumberjer@gmail.com', '2', '5.00', 'Mee Goreng Mamak', 'paid', '1', '28032019-OWjohGu'),
-('4', 'slumberjer@gmail.com', '3', '2.50', 'Laksam', 'paid', '1', '28032019-OWjohGu'),
-('2', 'slumberjer@gmail.com', '1', '4.50', 'Laksa Perak', 'paid', '3', '28032019-OWjohGu'),
-('3', 'slumberjer@gmail.com', '10', '2.00', 'Roti Canai', 'paid', '2', '28032019-OWjohGu'),
-('1', 'slumberjer@gmail.com', '1', '5.00', 'Mee Goreng Mamak', 'paid', '1', '28032019-OWjohGu'),
-('4', 'slumberjer@gmail.com', '1', '2.50', 'Laksam', 'paid', '1', '28032019-OWjohGu'),
-('4', 'slumberjer@gmail.com', '7', '2.50', 'Laksam', 'paid', '1', '28032019-OWjohGu'),
-('3', 'slumberjer@gmail.com', '1', '2.00', 'Roti Canai', 'paid', '2', '28032019-OWjohGu'),
-('1', 'slumberjer@gmail.com', '1', '5.00', 'Mee Goreng Mamak', 'paid', '1', '28032019-OWjohGu'),
-('4', 'slumberjer@gmail.com', '5', '2.50', 'Laksam', 'paid', '1', '28032019-OWjohGu'),
-('1', 'wanzulkarnain69@gmail.com', '1', '5.00', 'Mee Goreng Mamak', 'not paid', '1', '01042019-f1zxscd'),
-('1', 'wanzulkarnain69@gmail.com', '1', '5.00', 'Mee Goreng Mamak', 'not paid', '1', '01042019-f1zxscd'),
-('1', 'sha@gmail.com', '6', '5.00', 'Mee Goreng Mamak', 'not paid', '1', '05042019-BM8iT1T'),
-('4', 'slumberjer@gmail.com', '1', '2.50', 'Laksam', 'paid', '1', '28032019-OWjohGu'),
-('3', 'slumberjer@gmail.com', '1', '2.00', 'Roti Canai', 'paid', '2', '28032019-OWjohGu'),
-('2', 'slumberjer@gmail.com', '7', '4.50', 'Laksa Perak', 'paid', '3', '28032019-OWjohGu'),
-('1', 'koon', '4', '5.00', 'Mee Goreng Mamak', 'not paid', '1', '10042019-p4OppZR'),
-('4', 'e@g.com', '1', '2.50', 'Laksam', 'not paid', '1', '13042019-tS1jdWE'),
-('1', 'slumberjer@gmail.com', '1', '5.00', 'Mee Goreng Mamak', 'paid', '1', '28032019-OWjohGu'),
-('4', 'sharania@gmail.com', '1', '2.50', 'Laksam', 'not paid', '1', '01052019-0px2vXJ'),
-('1', 'shan123@yahoo.com', '1', '5.00', 'Mee Goreng Mamak', 'not paid', '1', '04052019-PpJmOHy'),
-('1', 'yeongshyhhaw@gmail.com', '1', '5.00', 'Mee Goreng Mamak', 'not paid', '1', '05052019-NXOFMP9'),
-('1', 'shan123@yahoo.com', '1', '5.00', 'Mee Goreng Mamak', 'not paid', '1', '04052019-PpJmOHy'),
-('3', 'shan123@yahoo.com', '3', '2.00', 'Roti Canai', 'not paid', '2', '04052019-PpJmOHy'),
-('1', 'shan123@yahoo.com', '1', '5.00', 'Mee Goreng Mamak', 'not paid', '1', '04052019-PpJmOHy'),
-('1', 'shan123@yahoo.com', '1', '5.00', 'Mee Goreng Mamak', 'not paid', '1', '04052019-PpJmOHy');
+('12', '0194702493', '1', '5.50', 'Paneer Masalla', 'paid', '2', '08052019-5R8FLGn'),
+('19', '0194702493', '1', '3.50', 'Laksa Johor', 'paid', '3', '08052019-5R8FLGn'),
+('16', '0194702493', '1', '5.50', 'Nasi Rendang', 'paid', '1', '08052019-qxgbUmp'),
+('11', '0194702493', '1', '4.50', 'Chickpea', 'paid', '5', '08052019-qxgbUmp'),
+('12', '0194702493', '1', '5.50', 'Paneer Masalla', 'paid', '2', '08052019-qxgbUmp'),
+('10', '0194702493', '1', '5.50', 'Pad Thai Noodle', 'paid', '5', '08052019-Oi6XCFF'),
+('12', '0194702493', '1', '5.50', 'Paneer Masalla', 'paid', '2', '08052019-Oi6XCFF'),
+('18', '0194702493', '1', '4.50', 'Laksa Lemak', 'paid', '3', '08052019-Oi6XCFF'),
+('5', '0194702493', '1', '7.50', 'Pizza Cheese', 'paid', '4', '08052019-Oi6XCFF'),
+('7', '0194702493', '1', '7.80', 'Paperdele', 'paid', '4', '08052019-Oi6XCFF'),
+('9', '0194702493', '1', '6.50', 'Kungpao Chicken', 'paid', '5', '08052019-Oi6XCFF');
 
 -- --------------------------------------------------------
 
@@ -102,8 +77,24 @@ CREATE TABLE `FOODS` (
 INSERT INTO `FOODS` (`FOODID`, `FOODNAME`, `FOODPRICE`, `QUANTITY`, `RESTID`) VALUES
 (1, 'Mee Goreng Mamak', '5.00', '18', '1'),
 (2, 'Laksa Perak', '4.50', '7', '3'),
-(3, 'Roti Canai', '2.00', '75', '2'),
-(4, 'Laksam', '2.50', '3', '1');
+(3, 'Roti Canai', '2.00', '74', '2'),
+(4, 'Laksam', '2.50', '3', '1'),
+(5, 'Pizza Cheese', '7.50', '29', '4'),
+(6, 'Bolognese Sausage', '5.50', '28', '4'),
+(7, 'Paperdele', '7.80', '48', '4'),
+(8, 'Polenta', '10.50', '32', '4'),
+(9, 'Kungpao Chicken', '6.50', '28', '5'),
+(10, 'Pad Thai Noodle', '5.50', '39', '5'),
+(11, 'Chickpea', '4.50', '17', '5'),
+(12, 'Paneer Masalla', '5.50', '26', '2'),
+(13, 'Kheema Samosa', '4.50', '40', '2'),
+(14, 'Chicken Sagwala', '4.50', '40', '2'),
+(15, 'Nasi Goreng Biasa', '4.50', '29', '1'),
+(16, 'Nasi Rendang', '5.50', '29', '1'),
+(17, 'Nasi Lemak Sotong', '5.50', '50', '1'),
+(18, 'Laksa Lemak', '4.50', '38', '3'),
+(19, 'Laksa Johor', '3.50', '19', '3'),
+(20, 'Laksa Penang', '5.50', '30', '3');
 
 -- --------------------------------------------------------
 
@@ -123,16 +114,8 @@ CREATE TABLE `ORDERED` (
 --
 
 INSERT INTO `ORDERED` (`ORDERID`, `USERID`, `TOTAL`, `DATE`) VALUES
-('28032019-OWjohGu', 'slumberjer', '207.5', '2019-03-28 05:54:37.867905'),
-('28032019-OWjohGu', 'slumberjer', '4.5', '2019-03-28 10:13:01.969101'),
-('28032019-OWjohGu', 'slumberjer', '28.5', '2019-03-28 14:03:45.265108'),
-('28032019-OWjohGu', 'slumberjer', '15.0', '2019-03-28 14:35:36.247092'),
-('28032019-OWjohGu', 'slumberjer', '17.5', '2019-03-28 15:13:05.148729'),
-('28032019-OWjohGu', 'slumberjer', '24.5', '2019-03-29 15:08:55.505422'),
-('28032019-OWjohGu', 'slumberjer', '7.5', '2019-03-30 09:54:48.980538'),
-('28032019-OWjohGu', 'slumberjer', '19.5', '2019-03-31 05:24:12.085445'),
-('28032019-OWjohGu', 'slumberjer', '22.0', '2019-04-07 06:29:39.300631'),
-('28032019-OWjohGu', 'slumberjer', '36.5', '2019-05-05 09:17:07.481107');
+('08052019-qxgbUmp', '0194702493', '15.5', '2019-05-08 15:22:51.247162'),
+('08052019-Oi6XCFF', '0194702493', '37.3', '2019-05-08 16:05:18.157234');
 
 -- --------------------------------------------------------
 
@@ -145,17 +128,21 @@ CREATE TABLE `RESTAURANT` (
   `NAME` varchar(50) NOT NULL,
   `PHONE` varchar(20) NOT NULL,
   `ADDRESS` varchar(200) NOT NULL,
-  `LOCATION` varchar(20) NOT NULL
+  `LOCATION` varchar(20) NOT NULL,
+  `LATITUDE` varchar(30) NOT NULL,
+  `LONGITUDE` varchar(30) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `RESTAURANT`
 --
 
-INSERT INTO `RESTAURANT` (`RESTID`, `NAME`, `PHONE`, `ADDRESS`, `LOCATION`) VALUES
-(1, 'Buluh Madu', '01934558488', 'Jalan Changlun', 'Changlun'),
-(2, 'Makcik Kari', '0156766456', 'Jalan Sintok', 'Sintok'),
-(3, 'Laksa Changlun', '01944674445', 'Pekan Changlun', 'Changlun');
+INSERT INTO `RESTAURANT` (`RESTID`, `NAME`, `PHONE`, `ADDRESS`, `LOCATION`, `LATITUDE`, `LONGITUDE`) VALUES
+(1, 'Buluh Madu', '01934558488', 'Jalan Changlun', 'Changlun', '6.433105', '100.436619'),
+(2, 'Makcik Kari', '0156766456', 'Jalan Sintok', 'Sintok', '6.447736', '100.524096'),
+(3, 'Laksa Changlun', '01944674445', 'Pekan Changlun', 'Changlun', '6.435130', '100.430111'),
+(4, 'Mama', '0426665443', 'Mualamat, UUM', 'Sintok', '6.477651', '100.509161'),
+(5, 'Makcik Felda', '0194443333', 'Jalan Felda', 'Sintok', '6.493133', '100.478162');
 
 -- --------------------------------------------------------
 
@@ -178,7 +165,7 @@ CREATE TABLE `USER` (
 --
 
 INSERT INTO `USER` (`EMAIL`, `PASSWORD`, `PHONE`, `NAME`, `LOCATION`, `LATITUDE`, `LONGITUDE`) VALUES
-('slumberjer@gmail.com', '1b64dad048eda4f2a22621490c0ea7a1db37ad43', '0194702493', 'Ahmad Hanis', 'Changlun', '6.443224050268126', '100.42504772543909');
+('slumberjer@gmail.com', '8cb2237d0679ca88db6464eac60da96345513964', '0194702493', 'Ahmad Hanis', 'Changlun', '6.443224050268126', '100.42504772543909');
 
 --
 -- Indexes for dumped tables
@@ -210,13 +197,13 @@ ALTER TABLE `USER`
 -- AUTO_INCREMENT for table `FOODS`
 --
 ALTER TABLE `FOODS`
-  MODIFY `FOODID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `FOODID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `RESTAURANT`
 --
 ALTER TABLE `RESTAURANT`
-  MODIFY `RESTID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `RESTID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
