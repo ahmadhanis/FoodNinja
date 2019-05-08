@@ -37,7 +37,7 @@ ImageView imgRest;
 ListView lvfood;
     Dialog myDialogWindow;
     ArrayList<HashMap<String, String>> foodlist;
-    String userid,restid;
+    String userid,restid,userphone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ ListView lvfood;
         String raddress = bundle.getString("address");
         String rlocation = bundle.getString("location");
         userid = bundle.getString("userid");
+        userphone = bundle.getString("userphone");
         initView();
         tvrname.setText(rname);
         tvraddress.setText(raddress);
@@ -143,7 +144,7 @@ ListView lvfood;
                 hashMap.put("foodname",foodname);
                 hashMap.put("quantity",fquan);
                 hashMap.put("foodprice",foodprice);
-                hashMap.put("userid",userid);
+                hashMap.put("userid",userphone);
                 RequestHandler rh = new RequestHandler();
                 String s = rh.sendPostRequest("http://uumresearch.com/foodninja/php/insert_cart.php",hashMap);
                 return s;
@@ -229,6 +230,7 @@ ListView lvfood;
                 Intent intent = new Intent(RestaurantActivity.this,MainActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("userid",userid);
+                bundle.putString("phone",userphone);
                 intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);

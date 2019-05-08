@@ -25,7 +25,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import static java.lang.Thread.sleep;
@@ -34,16 +36,18 @@ public class MainActivity extends AppCompatActivity {
     ListView lvrest;
     ArrayList<HashMap<String, String>> restlist;
     ArrayList<HashMap<String, String>> cartlist;
-    double total;
+    ArrayList<HashMap<String, String>> orderhistorylist;
+    double total,totalhistory;
     Spinner sploc;
     String userid,name,phone;
-    Dialog myDialogCart;
+    Dialog myDialogCart,myDialogHistory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lvrest = findViewById(R.id.listviewRest);
         cartlist = new ArrayList<>();
+        orderhistorylist= new ArrayList<>();
         sploc = findViewById(R.id.spinner);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -63,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("address",restlist.get(position).get("address"));
                 bundle.putString("location",restlist.get(position).get("location"));
                 bundle.putString("userid",userid);
+                bundle.putString("userphone",phone);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -162,12 +167,90 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtras(bundle);
                 startActivity(intent);
                 return true;
-
+            case R.id.myhistory:
+                loadHistoryOrderData();
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void loadHistoryOrderData() {
+        class LoadOrderData extends AsyncTask<Void,String,String>{
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                HashMap<String,String> hashMap = new HashMap<>();
+                hashMap.put("userid",phone);
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendPostRequest("http://uumresearch.com/foodninja/php/load_order_history.php",hashMap);
+                return s;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                orderhistorylist.clear();
+                totalhistory = 0;
+                try{
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONArray ordarray = jsonObject.getJSONArray("history");
+
+                    for (int i=0;i<ordarray  .length();i++) {
+                        JSONObject c = ordarray  .getJSONObject(i);
+                        String jsorderid = c.getString("orderid");
+                        String jstotal = c.getString("total");
+                        String jsdate = c.getString("date");
+                        HashMap<String,String> histlisthash = new HashMap<>();
+                        histlisthash  .put("orderid",jsorderid);
+                        histlisthash  .put("total",jstotal);
+                        histlisthash  .put("date",convertime24h(jsdate));
+                        orderhistorylist.add(histlisthash);
+                        totalhistory = Double.parseDouble(jstotal) + totalhistory;
+                    }
+                }catch (JSONException e){}
+                super.onPostExecute(s);
+                if (orderhistorylist.size()>0){
+                    loadHistoryWindow();
+                }else{
+                    Toast.makeText(MainActivity.this, "No order history", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        }
+        LoadOrderData loadOrderData = new LoadOrderData();
+        loadOrderData.execute();
+    }
+
+    private void loadHistoryWindow() {
+        myDialogHistory = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);//Theme_DeviceDefault_Dialog_NoActionBar
+        myDialogHistory.setContentView(R.layout.hist_window);
+        myDialogHistory.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        ListView lvhist = myDialogHistory.findViewById(R.id.lvhistory);
+        TextView tvtotal = myDialogHistory.findViewById(R.id.textViewTotal);
+
+        ListAdapter adapter = new SimpleAdapter(
+                MainActivity.this, orderhistorylist,
+                R.layout.hist_order_list, new String[]
+                {"orderid","total","date"}, new int[]
+                {R.id.textView,R.id.textView2,R.id.textView3});
+        lvhist.setAdapter(adapter);
+        tvtotal.setText("RM"+totalhistory);
+        myDialogHistory.show();
+    }
+
+    public String convertime24h(String value) {
+        String _12hourformat = "";
+        try {
+            //Log.e("DATE", value);
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+            Date date = dt.parse(value.substring(0, 16));
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
+            return _12hourformat = dt1.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return _12hourformat;
+    }
     private void loadCartWindow() {
         myDialogCart = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);//Theme_DeviceDefault_Dialog_NoActionBar
         myDialogCart.setContentView(R.layout.cart_window);
@@ -288,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... voids) {
                 HashMap<String,String> hashMap = new HashMap<>();
-                hashMap.put("userid",userid);
+                hashMap.put("userid",phone);
                 RequestHandler rh = new RequestHandler();
                 String s = rh.sendPostRequest("http://uumresearch.com/foodninja/php/load_cart.php",hashMap);
                 return s;

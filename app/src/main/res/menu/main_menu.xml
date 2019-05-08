@@ -8,6 +8,8 @@
         app:showAsAction="always" />
     <item android:title="My Profile"
         android:id="@+id/myprofile"/>
+    <item android:title="Purchased History"
+        android:id="@+id/myhistory"/>
     <item android:title="About" />
     <item android:title="Log Out" />
 </menu>
