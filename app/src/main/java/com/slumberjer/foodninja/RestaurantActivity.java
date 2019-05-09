@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -19,6 +23,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.share.model.ShareContent;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.ShareMediaContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -30,6 +41,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import com.facebook.FacebookSdk;
 
 public class RestaurantActivity extends AppCompatActivity {
 TextView tvrname,tvrphone,tvraddress,tvrloc;
@@ -77,9 +89,10 @@ ListView lvfood;
             myDialogWindow.setContentView(R.layout.dialog_window);
             myDialogWindow.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             TextView tvfname,tvfprice,tvfquan;
-            ImageView imgfood = myDialogWindow.findViewById(R.id.imageViewFood);
+            final ImageView imgfood = myDialogWindow.findViewById(R.id.imageViewFood);
             final Spinner spquan = myDialogWindow.findViewById(R.id.spinner2);
             Button btnorder = myDialogWindow.findViewById(R.id.button2);
+            final ImageButton btnfb = myDialogWindow.findViewById(R.id.btnfacebook);
             tvfname= myDialogWindow.findViewById(R.id.textView12);
             tvfprice = myDialogWindow.findViewById(R.id.textView13);
             tvfquan = myDialogWindow.findViewById(R.id.textView14);
@@ -94,6 +107,22 @@ ListView lvfood;
                 public void onClick(View v) {
                     String fquan = spquan.getSelectedItem().toString();
                     dialogOrder(foodid,foodname,fquan,foodprice);
+                }
+            });
+
+            btnfb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bitmap image = ((BitmapDrawable)imgfood.getDrawable()).getBitmap();
+                    SharePhoto photo = new SharePhoto.Builder()
+                            .setBitmap(image)
+                            .build();
+                    SharePhotoContent content = new SharePhotoContent.Builder()
+                            .addPhoto(photo)
+                            .build();
+
+                    ShareDialog shareDialog = new ShareDialog(RestaurantActivity.this);
+                    shareDialog.show(content);
                 }
             });
             int quan = Integer.parseInt(foodlist.get(p).get("foodquantity"));

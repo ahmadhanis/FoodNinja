@@ -34,5 +34,5 @@
         <item>Bukit Kayu Hitam</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
-
+    <string name="facebook_app_id">615435802271174</string>
 </resources>

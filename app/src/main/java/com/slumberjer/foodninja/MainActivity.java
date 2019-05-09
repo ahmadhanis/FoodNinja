@@ -227,7 +227,13 @@ public class MainActivity extends AppCompatActivity {
         myDialogHistory.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         ListView lvhist = myDialogHistory.findViewById(R.id.lvhistory);
         TextView tvtotal = myDialogHistory.findViewById(R.id.textViewTotal);
-
+        Button btnclose = myDialogHistory.findViewById(R.id.btnClose);
+        btnclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialogHistory.dismiss();
+            }
+        });
         ListAdapter adapter = new SimpleAdapter(
                 MainActivity.this, orderhistorylist,
                 R.layout.hist_order_list, new String[]

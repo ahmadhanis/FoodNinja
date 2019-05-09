@@ -98,7 +98,7 @@
                 android:background="@color/colorPrimaryDark" />
 
             <Button
-                android:id="@+id/btnPay"
+                android:id="@+id/btnClose"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -107,7 +107,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/buttonsquaredark"
-                android:text="PAY NOW"
+                android:text="CLOSE"
                 android:textColor="@color/colorWhite" />
         </LinearLayout>
     </LinearLayout>

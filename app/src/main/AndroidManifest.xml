@@ -39,13 +39,14 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".PaymentActivity" />
-        <activity android:name=".RestaurantActivity" />
+        <activity android:name=".RestaurantActivity"/>
         <activity android:name=".MainActivity" />
         <activity
             android:name=".RegisterActivity"
@@ -62,6 +63,9 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <provider android:authorities="com.facebook.app.FacebookContentProvider615435802271174"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
     </application>
 
 </manifest>
