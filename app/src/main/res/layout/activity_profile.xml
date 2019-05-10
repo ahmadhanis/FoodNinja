@@ -11,11 +11,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.35"
+            android:background="@mipmap/background"
             android:orientation="vertical">
 
             <TextView
@@ -38,156 +41,124 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
+            android:layout_weight="0.2"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView33"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_weight="0.7"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:text="UPDATE PROFILE"
+                android:textColor="@color/colorWhite" />
 
-                <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:text="Phone" />
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="Phone" />
 
-                <TextView
-                    android:id="@+id/txtphone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:layout_weight="0.3"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/txtphone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_weight="0.3"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:text="Email" />
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="Email" />
 
-                <EditText
-                    android:id="@+id/txtemail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:background="@drawable/edittextshapelogin"
-                    android:padding="4dp"
-                    android:text="" />
-            </LinearLayout>
+            <EditText
+                android:id="@+id/txtemail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/edittextshapelogin"
+                android:padding="4dp"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="Name" />
+
+            <EditText
+                android:id="@+id/txtUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/edittextshapelogin"
+                android:padding="4dp" />
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="Old Password" />
+
+            <EditText
+                android:id="@+id/txtoldpassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/edittextshapelogin"
+                android:inputType="textPassword"
+                android:padding="4dp" />
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="New Password" />
+
+            <EditText
+                android:id="@+id/txtnewpassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/edittextshapelogin"
+                android:inputType="textPassword"
+                android:padding="4dp" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="Location" />
+
+            <Spinner
+                android:id="@+id/spinLoc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/edittextshape"
+                android:entries="@array/location"
+                android:padding="4dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:text="Name" />
-
-                <EditText
-                    android:id="@+id/txtUsername"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:background="@drawable/edittextshapelogin"
-                    android:padding="4dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <TextView
-                    android:id="@+id/textView28"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:text="Old Password" />
-
-                <EditText
-                    android:id="@+id/txtoldpassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:background="@drawable/edittextshapelogin"
-                    android:inputType="textPassword"
-                    android:padding="4dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <TextView
-                    android:id="@+id/textView29"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:text="New Password" />
-
-                <EditText
-                    android:id="@+id/txtnewpassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:background="@drawable/edittextshapelogin"
-                    android:inputType="textPassword"
-                    android:padding="4dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <TextView
-                    android:id="@+id/textView26"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:text="Location" />
-
-                <Spinner
-                    android:id="@+id/spinLoc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="2dp"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/edittextshape"
-                    android:entries="@array/location"
-                    android:padding="4dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
@@ -204,7 +175,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="2dp"
                     android:layout_weight="0.25"
+                    android:autoLink="map"
+                    android:clickable="true"
                     android:entries="@array/location"
+                    android:linksClickable="true"
+                    android:maxLines="1"
                     android:padding="4dp" />
 
                 <ImageButton
@@ -221,6 +196,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="0.45"
             android:gravity="bottom"
             android:orientation="vertical">
 
@@ -228,11 +204,7 @@
                 android:id="@+id/button5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/buttonsquare"
+                android:background="@color/colorPrimaryDark"
                 android:text="UPDATE"
                 android:textColor="@color/colorWhite" />
         </LinearLayout>
